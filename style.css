@@ -1,0 +1,451 @@
+* {
+  box-sizing: border-box;
+  user-select: none;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: linear-gradient(180deg, #5b7be0, #3447a8);
+  color: #fff;
+}
+
+/* Tela */
+#gameScreen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0 24px;
+}
+
+/* Topo */
+.top-bar {
+  width: 92%;
+  max-width: 360px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  opacity: 0.9;
+}
+
+button {
+  background: rgba(255,255,255,0.2);
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  padding: 6px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* Grid */
+#grid {
+  width: 92vw;
+  max-width: 360px;
+  aspect-ratio: 1;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  gap: 2px;
+  padding: 8px;
+  background: rgba(0,0,0,0.3);
+  border-radius: 18px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.45);
+}
+
+.cell {
+  background: rgba(255,255,255,0.07);
+  border-radius: 4px;
+}
+
+.cell.filled {
+  background: #ff9800;
+  box-shadow: inset 0 0 6px rgba(255,255,255,0.4);
+}
+
+/* Peças */
+#pieces {
+  display: flex;
+  gap: 20px;
+}
+
+.piece {
+  display: grid;
+  gap: 2px;
+  padding: 12px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 16px;
+  cursor: grab;
+}
+
+.block {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  background: #ff9800;
+}
+
+/* =======================
+   CORES DAS PEÇAS
+======================= */
+.block {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  box-shadow:
+    inset 0 1px 2px rgba(255,255,255,0.35),
+    inset 0 -2px 3px rgba(0,0,0,0.25);
+}
+
+/* =======================
+   PREVIEW 3D (SOMBRA)
+======================= */
+.preview {
+  background: rgba(255,255,255,0.25) !important;
+  box-shadow:
+    inset 0 0 6px rgba(255,255,255,0.6),
+    0 6px 14px rgba(0,0,0,0.4);
+  border-radius: 4px;
+}
+
+/* =======================
+   COMBO VISUAL
+======================= */
+#combo {
+  font-size: 14px;
+  opacity: 0.85;
+  margin-left: 6px;
+}
+
+/* Raridades */
+.piece.rare {
+  box-shadow: 0 0 12px rgba(156,39,176,0.9);
+}
+
+.piece.legendary {
+  box-shadow: 0 0 18px gold;
+  animation: pulse 1.2s infinite;
+}
+
+/* Tema Neon */
+body.neon {
+  background: radial-gradient(circle at top, #00e5ff, #000);
+}
+
+body.neon .cell {
+  background: rgba(0,255,255,0.15);
+}
+
+/* ========================
+   TELA DE INÍCIO
+======================== */
+#startScreen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  gap: 18px;
+  background: linear-gradient(180deg, #243abf, #1a255f);
+}
+
+#startScreen h1 {
+  font-size: 48px;
+  letter-spacing: 4px;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+#startScreen button {
+  width: 200px;
+  font-size: 20px;
+  padding: 12px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+}
+
+.hidden { display: none !important; }
+.piece { touch-action: none; }
+
+.icon-btn {
+  background: rgba(255,255,255,0.2);
+  border: none;
+  font-size: 20px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.score-center {
+  text-align: center;
+  font-size: 22px;
+}
+
+.score-center small {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+/* MENU */
+.menu {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+}
+
+.menu.hidden {
+  display: none;
+}
+
+.menu > div {
+  background: #111;
+  padding: 24px;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 320px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+}
+
+.menu button {
+  width: 200px;
+}
+
+.menu .close {
+  margin-top: 20px;
+  background: #ff5252;
+}
+
+/* TEMA DARK */
+body.dark {
+  background: #000;
+}
+
+body.dark .cell {
+  background: rgba(255,255,255,0.1);
+}
+
+@keyframes trophyPulse {
+  0% { transform: scale(1); box-shadow: 0 0 0 gold; }
+  50% { transform: scale(1.3); box-shadow: 0 0 20px gold; }
+  100% { transform: scale(1); box-shadow: 0 0 0 gold; }
+}
+
+.icon-btn.record {
+  animation: trophyPulse 0.8s ease;
+}
+
+@keyframes clearFlash {
+  0% {
+    background: #fff;
+    transform: scale(1);
+  }
+  50% {
+    background: #ffeb3b;
+    transform: scale(1.15);
+  }
+  100% {
+    background: transparent;
+    transform: scale(1);
+  }
+}
+
+.cell.clearing {
+  animation: clearFlash 0.35s ease;
+}
+
+.settings {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  font-size: 22px;
+  z-index: 100;
+}
+
+.floating-score {
+  position: fixed;
+  font-size: 24px;
+  font-weight: bold;
+  color: #ffd700;
+  pointer-events: none;
+  transform: translateX(-50%);
+  animation: floatUp .9s ease-out forwards;
+  text-shadow: 0 0 12px rgba(255,215,0,.8);
+}
+
+@keyframes floatUp {
+  from { opacity:1; transform:translate(-50%,0) scale(1); }
+  to   { opacity:0; transform:translate(-50%,-60px) scale(1.4); }
+}
+
+/* ======================
+   HUD EXTRA
+====================== */
+.hud-extra {
+  width: 100%;
+  margin-top: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+}
+
+/* TIMER */
+#timer {
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+#timer.danger {
+  color: #ff5252;
+  animation: pulse 0.8s infinite;
+}
+
+/* PROGRESSO */
+.progress-container {
+  width: 100%;
+  height: 8px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+#progressBar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #4caf50, #ffeb3b);
+  border-radius: 6px;
+  transition: width 0.3s ease;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: .4; }
+  100% { opacity: 1; }
+}
+
+/* ========================
+   TELA DE VITÓRIA
+======================== */
+.victory {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at top, #1a237e, #000);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  overflow: hidden;
+}
+
+.victory.hidden {
+  display: none;
+}
+
+.victory-card {
+  background: rgba(0,0,0,0.75);
+  border-radius: 24px;
+  padding: 40px 32px;
+  text-align: center;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.8);
+  animation: popIn 0.6s ease;
+}
+
+.victory h1 {
+  font-size: 42px;
+  margin: 12px 0;
+  letter-spacing: 4px;
+  text-shadow: 0 0 18px gold;
+}
+
+.victory-score {
+  font-size: 22px;
+  margin-top: 10px;
+}
+
+.victory-meta {
+  font-size: 16px;
+  opacity: 0.85;
+  margin-bottom: 20px;
+}
+
+.victory button {
+  font-size: 18px;
+  padding: 10px 22px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, gold, orange);
+  color: #000;
+  font-weight: bold;
+}
+
+/* 🏆 TROFÉU */
+.trophy {
+  font-size: 80px;
+  animation: trophyFloat 1.6s ease-in-out infinite;
+  text-shadow: 0 0 25px gold;
+}
+
+/* 🎉 CONFETES */
+.confetti::before,
+.confetti::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle, gold 2px, transparent 3px),
+    radial-gradient(circle, #ff5252 2px, transparent 3px),
+    radial-gradient(circle, #03a9f4 2px, transparent 3px);
+  background-size: 40px 40px;
+  animation: confettiFall 6s linear infinite;
+  opacity: 0.6;
+}
+
+/* ========================
+   ANIMAÇÕES
+======================== */
+@keyframes popIn {
+  from { transform: scale(0.4); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+@keyframes trophyFloat {
+  0%   { transform: translateY(0) scale(1); }
+  50%  { transform: translateY(-12px) scale(1.1); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+@keyframes confettiFall {
+  from { background-position-y: -200px; }
+  to   { background-position-y: 800px; }
+}
+
+.game-footer {
+  text-align: center;
+  font-size: 12px;
+  opacity: 0.75;
+  padding: 12px 0;
+}
+
+.game-footer a {
+  color: #ffd700;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.game-footer a:hover {
+  text-decoration: underline;
+}
+
+.game-footer .credits {
+  margin-top: 4px;
+  opacity: 0.6;
+}

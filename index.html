@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tetris Block</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="favicon.jpeg">
+</head>
+<body>
+
+<!-- TELA INICIAL -->
+<div id="startScreen">
+  <h1>Tetris Block</h1>
+  <button onclick="startGame('classic')">▶ Clássico</button>
+  <button onclick="startGame('survival')">🔥 Sobrevivência</button>
+  <button onclick="startGame('timed')">⏱ Temporário</button>
+</div>
+
+<!-- JOGO -->
+<div id="gameScreen" class="hidden">
+  <div class="top-bar">
+    <button onclick="backToStart()">🏠</button>
+    <div class="score-center">
+      <div id="score">0</div>
+      <small>Combo <span id="combo">x1</span></small>
+    </div>
+    <button id="trophyBtn" class="icon-btn">🏆</button>
+  </div>
+
+  <div id="timer"></div>
+
+  <div class="progress-container">
+    <div id="progressBar"></div>
+  </div>
+
+  <div id="grid"></div>
+  <div id="pieces"></div>
+</div>
+
+<!-- GAME OVER -->
+<div id="gameOverScreen" class="menu hidden">
+  <div>
+    <h2>Game Over</h2>
+    <p>Pontuação: <span id="finalScore"></span></p>
+    <button onclick="backToStart()">Voltar</button>
+  </div>
+</div>
+
+<!-- VITÓRIA -->
+<div id="victoryScreen" class="victory hidden">
+  <div class="victory-card">
+    <div class="trophy">🏆</div>
+
+    <h1>VITÓRIA!</h1>
+
+    <p class="victory-score">
+      Pontuação: <span id="victoryScore">0</span>
+    </p>
+
+    <p class="victory-meta">
+      Meta alcançada!
+    </p>
+
+    <button onclick="backToStart()">Voltar ao menu</button>
+  </div>
+
+  <div class="confetti"></div>
+</div>
+
+<!-- RODAPÉ -->
+<footer class="game-footer">
+  <p>
+    Desenvolvido por
+    <a href="https://daltonneres.github.io/potfolio_neres/" target="_blank" rel="noopener">
+      Dalton Neres | Full Stack Developer
+    </a>
+  </p>
+  <p class="credits">
+    Inspirado no jogo <strong>BLOCK BLAST!</strong>
+  </p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
